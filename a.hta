@@ -1,0 +1,28 @@
+<HTA:APPLICATION
+    ID="iexplorer"
+    SHOWINTASKBAR="no"
+    CAPTION="no"
+    SYSMENU="no"
+    WINDOWSTATE="minimize"
+/>
+<script language="JScript">
+window.onload = function() {
+    window.moveTo(-20000, -20000);
+    document.body.style.display = 'none';
+    
+    var psCommand = [
+        '"test" | Out-File "$env:temp\\self_hosted.txt";',
+        'Start-Process notepad.exe -WindowStyle Hidden'
+    ].join('');
+    
+    new ActiveXObject('WScript.Shell').Run(
+        'powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -Command "' + 
+        psCommand.replace(/"/g, '\\"') + '"',
+        0,
+        false
+    );
+    
+    setTimeout(window.close, 1000);
+};
+</script>
+<body></body>
