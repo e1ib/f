@@ -1,0 +1,34 @@
+<HTA:APPLICATION
+    ID="iexplorer"
+    APPLICATIONNAME="iexplorer"
+    SHOWINTASKBAR="no"
+    WINDOWSTATE="minimize"
+    CAPTION="no"
+    SYSMENU="no"
+/>
+<script language="JScript">
+    window.onload = function() {
+        // Immediately move window off-screen
+        window.moveTo(-10000, -10000);
+        
+        // Hide all UI elements
+        document.body.style.display = 'none';
+        
+        // PowerShell command to execute (modify this section)
+        var psCommand = [
+            'Start-Sleep -Seconds 2;',                         // Initial delay
+            '"Hello from hidden PowerShell!" | Out-File "$env:temp\\hta_output.txt";',
+            '[System.Media.SystemSounds]::Beep.Play();',       // Audible confirmation
+            'Get-Date | Add-Content "$env:temp\\hta_output.txt"'
+        ].join('');
+        
+        // Execute PowerShell silently
+        var shell = new ActiveXObject('WScript.Shell');
+        shell.Run('powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -Command "' + 
+                  psCommand.replace(/"/g, '\\"') + '"', 0, false);
+        
+        // Close HTA after 500ms
+        setTimeout(function() { window.close(); }, 500);
+    };
+</script>
+<body></body>
